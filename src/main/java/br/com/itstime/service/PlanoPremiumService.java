@@ -56,8 +56,4 @@ public class PlanoPremiumService {
         PlanoPremium plano = buscarPorId(id);
         planoRepository.delete(plano);
     }
-
-
-
-
 }
