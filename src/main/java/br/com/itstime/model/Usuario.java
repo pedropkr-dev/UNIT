@@ -15,7 +15,7 @@ public class Usuario{
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 25)
     private String nomeUsuario;
 
     @Column(nullable = false, unique = true, length = 150)
@@ -114,6 +114,4 @@ public class Usuario{
     public String toString(){
         return  "Usuario{nome=" + nomeUsuario + ", email=" + email + ", pontos=" + pontosTotais + "}";
     }
-
-
 }
