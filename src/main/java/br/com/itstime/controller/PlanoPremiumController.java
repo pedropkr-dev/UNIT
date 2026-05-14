@@ -46,7 +46,6 @@ public class PlanoPremiumController {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> cancelar(@PathVariable UUID id) {
         try {
