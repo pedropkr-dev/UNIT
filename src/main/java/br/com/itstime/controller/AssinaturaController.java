@@ -1,38 +1,51 @@
 package br.com.itstime.controller;
 
-import br.com.itstime.model.PlanoPremium;
-import br.com.itstime.service.PlanoPremiumService;
+import br.com.itstime.model.Assinatura;
+import br.com.itstime.service.AssinaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/planos")
+@RequestMapping("/api/assinaturas")
 @CrossOrigin(origins = "*")
-public class PlanoPremiumController {
+public class AssinaturaController {
     @Autowired
-    private PlanoPremiumService planoService;
+    private AssinaturaService planoService;
 
     @GetMapping
-    public List<PlanoPremium> listar() {
+    public List<Assinatura> listar() {
         return planoService.listaTodos();
     }
 
     @PostMapping
     public ResponseEntity<?> contratar(@RequestBody Map<String, Object> dados) {
         try {
-            float valor = Float.parseFloat(dados.get("valorMensal").toString());
-            boolean suporte = (Boolean) dados.get("suportePrioritário");
-            String metodo = (String) dados.get("metodoPagamentos");
-            int dias = (Integer) dados.get("diasValidade");
 
-            PlanoPremium novo = planoService.contratar(valor, suporte, metodo, dias);
-            return ResponseEntity.ok(novo);
+            if (dados.get("valorMensal") == null) {
+                return ResponseEntity.badRequest().body(Map.of("erro", "valorMensal obrigatorio"));
+            }
+            if (dados.get("suportePrioritario") == null) {
+                return ResponseEntity.badRequest().body(Map.of("erro", "suportePrioritario obrigatorio"));
+            }
+            if (dados.get("metodoPagamento") == null) {
+                return ResponseEntity.badRequest().body(Map.of("erro", "metodoPagamento obrigatorio"));
+            }
+            if (dados.get("diasValidade") == null) {
+                return ResponseEntity.badRequest().body(Map.of("erro", "diasValidade obrigatorio"));
+            }
+
+            float valor = Float.parseFloat(dados.get("valorMensal").toString());
+            boolean suporte = Boolean.parseBoolean(dados.get("suportePrioritario").toString());
+            String metodo = dados.get("metodoPagamento").toString();
+            int dias = Integer.parseInt(dados.get("diasValidade").toString());
+
+            Assinatura nova = planoService.contratar(valor, suporte, metodo, dias);
+            return ResponseEntity.ok(nova);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }

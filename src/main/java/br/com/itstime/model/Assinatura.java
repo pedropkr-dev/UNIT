@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "planos_premium")
+@Table(name = "assinaturas")
 
-public class PlanoPremium {
+public class Assinatura {
 
     //ATRIBUTOS//
     @Id
@@ -28,11 +28,11 @@ public class PlanoPremium {
 
     //CONSTRUTORES//
 
-    public PlanoPremium(){
+    public Assinatura(){
 
     }
 
-    public PlanoPremium(float valorMensal, boolean suportePrioritario,LocalDateTime dataExpiracao, String metodoPagamento){
+    public Assinatura(float valorMensal, boolean suportePrioritario, LocalDateTime dataExpiracao, String metodoPagamento){
         this.valorMensal = valorMensal;
         this.suportePrioritario = suportePrioritario;
         this.dataExpiracao = dataExpiracao;

@@ -1,7 +1,7 @@
 package br.com.itstime.service;
 
-import br.com.itstime.model.PlanoPremium;
-import br.com.itstime.repository.PlanoPremiumRepository;
+import br.com.itstime.model.Assinatura;
+import br.com.itstime.repository.AssinaturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,17 @@ import java.util.UUID;
 
 
 @Service
-public class PlanoPremiumService {
+public class AssinaturaService {
     @Autowired
-    private PlanoPremiumRepository planoRepository;
+    private AssinaturaRepository planoRepository;
 
-    public PlanoPremium contratar(float valorMensal, boolean suportePrioritario, String metodoPagamento, int diasValidade) {
+    public Assinatura contratar(float valorMensal, boolean suportePrioritario, String metodoPagamento, int diasValidade) {
         if (valorMensal <= 0) {
             throw new RuntimeException("Valor mensal deve ser maior que zero");
         }
 
         LocalDateTime dataExpiracao = LocalDateTime.now().plusDays(diasValidade);
-        PlanoPremium novoPlano = new PlanoPremium(valorMensal, suportePrioritario, dataExpiracao, metodoPagamento);
+        Assinatura novoPlano = new Assinatura(valorMensal, suportePrioritario, dataExpiracao, metodoPagamento);
 
 
         // Processa a assinatura
@@ -33,27 +33,27 @@ public class PlanoPremiumService {
     }
 
     public boolean verificarAtivo(UUID idPlano) {
-        PlanoPremium plano = buscarPorId(idPlano);
+        Assinatura plano = buscarPorId(idPlano);
         return plano.verificarStatus();
     }
 
-    public PlanoPremium renovar(UUID idPlano, int diasAdicionais) {
-        PlanoPremium plano = buscarPorId(idPlano);
+    public Assinatura renovar(UUID idPlano, int diasAdicionais) {
+        Assinatura plano = buscarPorId(idPlano);
         plano.setDataExpiracao(plano.getDataExpiracao().plusDays(diasAdicionais));
         return planoRepository.save(plano);
     }
 
-    public PlanoPremium buscarPorId(UUID id) {
+    public Assinatura buscarPorId(UUID id) {
         return planoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Plano não encontrado"));
     }
 
-    public List<PlanoPremium> listaTodos() {
+    public List<Assinatura> listaTodos() {
         return planoRepository.findAll();
     }
 
     public void cancelar (UUID id) {
-        PlanoPremium plano = buscarPorId(id);
+        Assinatura plano = buscarPorId(id);
         planoRepository.delete(plano);
     }
 }
