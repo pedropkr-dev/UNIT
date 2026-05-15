@@ -27,7 +27,6 @@ public class RankingController {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
     }
-
     @GetMapping("/grupo/{idGrupo}/posicao/{idUsuario}")
     public ResponseEntity<?> posicaoNoGrupo(@PathVariable UUID idGrupo, @PathVariable UUID idUsuario) {
         try {

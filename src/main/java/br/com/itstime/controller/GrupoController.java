@@ -36,7 +36,7 @@ public class GrupoController {
         }
     }
 
-    // POST /api/grupos/{id}/membros -> adiciona membro do grupo
+
     @PostMapping("/{id}/membros")
     public ResponseEntity<?> adicionarMembro(@PathVariable UUID id, @RequestBody Map<String, String> dados) {
         try {

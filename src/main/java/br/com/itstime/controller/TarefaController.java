@@ -33,7 +33,7 @@ public class TarefaController {
         }
     }
 
-    // POST /api/tarefas -> cria nova tarefa
+
     @PostMapping
     public ResponseEntity<?> criar(@RequestBody Map<String, Object> dados) {
         try {
@@ -49,7 +49,7 @@ public class TarefaController {
         }
     }
 
-    // PATCH /api/tarefas/{id}/concluir?idUsuario=...
+
     @PatchMapping("/{id}/concluir")
     public ResponseEntity<?> concluir(@PathVariable UUID id, @RequestParam UUID idUsuario) {
         try {

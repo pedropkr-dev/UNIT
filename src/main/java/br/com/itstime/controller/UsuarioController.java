@@ -20,13 +20,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // GET /api/usuarios -> lista todos
+    //  lista todos
     @GetMapping
     public List<Usuario> listar() {
         return usuarioService.listarTodos();
     }
 
-    // GET /api/usuarios/{id} -> busca um usuario por id
+    //  busca um usuario por id
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable UUID id){
         try {
@@ -35,7 +35,7 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
     }
-    // POST /api/usuarios -> cadastra novo usuario
+    // cadastra novo usuario
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody Map<String, String> dados) {
         try {
@@ -50,7 +50,7 @@ public class UsuarioController {
         }
     }
 
-    // POST /api/usuarios/login -> faz login
+    //  faz login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> dados) {
         try {
@@ -64,7 +64,7 @@ public class UsuarioController {
         }
     }
 
-    // PUT /api/usuarios/{id} -> atualiza perfil
+    // atualiza perfil
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable UUID id, @RequestBody Map<String, String> dados) {
         try {
@@ -76,7 +76,7 @@ public class UsuarioController {
     }
 
 
-    // DELETE /api/usuarios/{id} -> deleta usuario
+    //  deleta usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable UUID id) {
         try {
